@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>貪吃蛇 - Bryan</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-wrap">
+    <header>
+      <h1>貪吃蛇</h1>
+      <div class="meta">
+        <span id="score">分數：0</span>
+        <button id="startBtn">開始 / 重新開始</button>
+        <button id="pauseBtn">暫停</button>
+      </div>
+    </header>
+
+    <canvas id="game" width="600" height="600" aria-label="貪吃蛇遊戲畫布"></canvas>
+
+    <section class="instructions">
+      <h2>操作說明</h2>
+      <ul>
+        <li>方向鍵 ← ↑ → ↓ 或 WASD 控制方向</li>
+        <li>按 Start 開始遊戲；按 Pause 暫停</li>
+        <li>吃到食物身體會變長，撞到牆或自己會結束遊戲</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>建立者：Bryan</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
