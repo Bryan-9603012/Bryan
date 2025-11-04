@@ -1,63 +1,162 @@
 <!doctype html>
+
 <html lang="zh-Hant">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bryan 倉庫 - 專案介紹</title>
-  <link rel="stylesheet" href="styles.css">
-  <meta name="robots" content="noindex">
+  <title>Cyber 科技風 • 個人頁面</title>
+  <style>
+    :root{
+      --bg:#04050a;
+      --neon-cyan:#00f0ff;
+      --neon-magenta:#ff4dff;
+      --neon-emerald:#00ffb3;
+      --muted:#98a6b3;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Noto Sans TC", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(800px 400px at 10% 10%, rgba(0,240,255,0.04), transparent 10%),
+                  radial-gradient(600px 300px at 90% 90%, rgba(255,77,255,0.03), transparent 8%),
+                  var(--bg);
+      color:#eaf6ff;padding:36px;overflow-y:auto;-webkit-font-smoothing:antialiased;
+    }
+
+    /* Matrix-like vertical lines (pure CSS) */
+    .vlines{position:fixed;inset:0;pointer-events:none;z-index:0;mix-blend-mode:screen;opacity:0.06;background-image:repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 28px, rgba(0,0,0,0.02) 28px 29px)}
+
+    /* moving scanlines */
+    .scan{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(180deg, rgba(255,255,255,0.015) 1px, transparent 2px);background-size:100% 6px;animation:scan 6s linear infinite}
+    @keyframes scan{from{background-position:0 0}to{background-position:0 600px}}
+
+    /* subtle particles using radial-gradients */
+    .particles{position:fixed;inset:0;z-index:0;opacity:0.06;background-image:radial-gradient(circle at 12% 20%, rgba(0,240,255,0.14), transparent 6%), radial-gradient(circle at 88% 80%, rgba(255,77,255,0.12), transparent 6%)}
+
+    /* page container */
+    .wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{
+      width:84px;height:84px;border-radius:12px;overflow:hidden;
+      position:relative;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--neon-cyan),var(--neon-magenta));
+      padding:6px;
+      box-shadow:0 6px 30px rgba(124,92,255,0.12);
+      color:#061018;font-weight:700;font-size:20px;
+    }
+    .logo::after{
+      content:'';position:absolute;inset:0;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.03);pointer-events:none;
+    }
+    h1{font-size:28px}
+    .tag{color:var(--muted);font-size:13px}
+
+    /* glass card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:18px;border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 12px 50px rgba(0,0,0,0.6)}
+
+    /* neon headings */
+    h2{color:var(--neon-cyan);text-shadow:0 2px 10px rgba(0,240,255,0.12);margin-bottom:8px}
+
+    /* terminal panel */
+    .terminal{background:#010204;border-radius:8px;padding:14px;font-family: "Fira Mono", SFMono-Regular, Menlo, Monaco, monospace;color:#6ef3ff;border:1px solid rgba(0,240,255,0.08);box-shadow:0 6px 30px rgba(0,240,255,0.04) inset}
+    .cmd{display:block}
+    .cursor{display:inline-block;width:10px;height:18px;background:var(--neon-cyan);margin-left:6px;vertical-align:middle;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);font-size:13px;color:#e6fbff}
+
+    .proj{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);margin-bottom:10px}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:8px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-magenta));color:#041018;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(124,92,255,0.08)}
+    a.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--neon-cyan)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+    /* small screens */
+    @media (max-width:920px){.wrap{grid-template-columns:1fr}.logo{width:64px;height:64px}}
+  </style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>Bryan 的程式倉庫</h1>
-      <p class="tagline">這個靜態頁面用來介紹此倉庫內的專案（純 HTML + CSS）。</p>
-    </div>
-  </header>
+  <div class="vlines" aria-hidden="true"></div>
+  <div class="particles" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
 
-  <main class="container">
-    <section id="about">
-      <h2>關於這個倉庫</h2>
-      <h3>Bryan</h3>
-      <p>（README 目前只包含標題）</p>
-      <p>如果你想把完整的 README.md 內容顯示在此處，請把檔案內容貼到聊天視窗，我會幫你自動格式化並更新網站。</p>
-    </section>
+  <div class="wrap">
+    <header style="grid-column:1/3;display:flex;align-items:center;gap:14px;">
+      <div class="logo">劉</div>
+      <div>
+        <h1>劉興源</h1>
+        <div class="tag">學生 • 科技愛好者</div>
+      </div>
+    </header>
+    <main class="card">
+      <h2>關於我</h2>
+      <p style="color:var(--muted);line-height:1.6">我是 <strong>劉興源</strong>，一位熱愛科技的學生。這是我用 HTML/CSS 打造的個人網頁，展現了我對科技與程式設計的熱情。</p>
 
-    <section id="projects">
-      <h2>專案一覽</h2>
+      <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
 
-      <div class="project">
-        <h3>範例專案：Project A</h3>
-        <p>簡短描述：這是一個示範專案，展示如何使用簡單的說明文本與連結來介紹專案。</p>
-        <p class="meta">路徑：<code>/path/to/project-a</code> • 技術：HTML, CSS, JavaScript</p>
+      <h3 style="color:var(--neon-emerald)">即時面板</h3>
+      <div class="terminal" aria-hidden="false">
+        <span class="cmd">$ whoami — 劉興源<span class="cursor" aria-hidden="true"></span></span>
+        <br />
+        <span class="cmd">$ role — Student</span>
+        <br />
+        <span class="cmd">$ status — Learning & Creating</span>
       </div>
 
-      <div class="project">
-        <h3>範例專案：Project B</h3>
-        <p>簡短描述：另一個示範專案，放置可執行範例、測試或工具腳本。</p>
-        <p class="meta">路徑：<code>/path/to/project-b</code> • 技術：Python</p>
+      <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+      <h3 style="margin-bottom:8px">技能</h3>
+      <div class="skills">
+        <span class="chip">HTML5</span>
+        <span class="chip">Modern CSS</span>
+        <span class="chip">Responsive</span>
+        <span class="chip">Accessibility</span>
+        <span class="chip">Design Systems</span>
+        <span class="chip">Performance</span>
+      </div>
+    </main>
+    <aside>
+      <div class="card">
+        <h3 style="color:var(--neon-magenta)">專案</h3>
+        <div class="proj">
+          <div>
+            <div style="font-weight:700">作品集網站</div>
+            <div style="color:var(--muted);font-size:13px">靜態網站 / 設計與部署</div>
+          </div>
+          <div><a class="btn" href="#">檢視</a></div>
+        </div>
+
+        <div class="proj">
+          <div>
+            <div style="font-weight:700">CSS 實驗室</div>
+            <div style="color:var(--muted);font-size:13px">互動與微動畫</div>
+          </div>
+          <div><a class="ghost btn" href="#">程式碼</a></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <a class="btn" href="mailto:bryanhuang710910@gmail.com">聯絡我</a>
+          <a class="ghost btn" href="#">我的作品集</a>
+        </div>
       </div>
 
-      <div class="project placeholder">
-        <h3>（更多專案）</h3>
-        <p>請把倉庫內每個專案的名稱、路徑和簡短描述貼到此處，或把完整的 README.md 貼給我，我可以幫你自動產生這些卡片。</p>
+      <div style="height:14px"></div>
+      <div class="card">
+        <h4 style="color:var(--neon-emerald)">快速資料</h4>
+        <div style="margin-top:8px;color:var(--muted);font-size:13px">
+          <div>所在：台灣</div>
+          <div>開始可用：2025-12</div>
+          <div>語言：中文（繁體）、英文</div>
+        </div>
       </div>
-    </section>
+    </aside>
+  </div>
 
-    <section id="how-to-help">
-      <h2>如何協助完善內容</h2>
-      <ol>
-        <li>把倉庫根目錄的 `README.md` 的完整內容貼到這個聊天框，我會把內容解析並自動把專案清單與描述替換到 `index.html`（我會直接編輯檔案並再次提交變更）。</li>
-        <li>或直接編輯 <code>index.html</code> 的專案區塊，替換範例專案為你真實的專案資訊。</li>
-      </ol>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>建立者：Bryan • 生成時間：2025-10-29</p>
-    </div>
-  </footer>
+  <footer style="max-width:1100px;margin:30px auto 0;text-align:center;color:var(--muted)">© 2025 劉興源。頁面為純 HTML + CSS（單檔）• 科技風格設計。</footer>
 </body>
+
 </html>
